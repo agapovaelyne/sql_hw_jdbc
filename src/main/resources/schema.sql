@@ -7,12 +7,6 @@ create table hw_jdbc.CUSTOMERS
     phone_number varchar(50) default "Unknown"
 );
 
-insert into hw_jdbc.CUSTOMERS(name, surname, age)
-values ("Alexey", "B", 34),
-       ("Danil", "K", 25),
-       ("Anna", "S", 27),
-       ("Oleg", "P", 44);
-
 create table hw_jdbc.ORDERS
 (
     id           serial primary key,
@@ -23,11 +17,5 @@ create table hw_jdbc.ORDERS
     foreign key (customer_id)
         references CUSTOMERS (id)
 );
-
-insert into hw_jdbc.ORDERS(customer_id, product_name, amount)
-values (1, "product1Alexeys", 4555),
-       (1, "product2Alexeys", 5000),
-       (3, "product3Annas", 3674),
-       (4, "product4Olegs", 3789);
 
 CREATE INDEX c_name ON CUSTOMERS (name);

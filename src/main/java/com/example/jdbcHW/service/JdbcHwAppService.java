@@ -1,25 +1,24 @@
 package com.example.jdbcHW.service;
 
 import com.example.jdbcHW.repository.JdbcHwAppRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class JdbcHwAppService {
-    JdbcHwAppRepository repository;
+    private JdbcHwAppRepository repository;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     public JdbcHwAppService(JdbcHwAppRepository repository) {
         this.repository = repository;
     }
 
-    public String getProductName(String name) {
+    public String getProductName(String name) throws JsonProcessingException {
         List<String> products = repository.getProductName(name);
-        StringBuilder response = new StringBuilder();
-        for (String product : products) {
-            response.append(String.format("{\"product_name\" : \"%s\"},", product));
-        }
-        String productNames = response.toString();
-        return productNames.substring(0, productNames.length() - 1);
+        String result = objectMapper.writeValueAsString(products);
+        return result;
     }
 }
